@@ -85,6 +85,7 @@ public class Contacts {
         // Shows every contacts
         int numberOfContact = contact.get(0).size();
         if (numberOfContact > 0) {
+            displayPrep();
             int i=0;
             System.out.println();
             while (i<numberOfContact) {
@@ -119,7 +120,7 @@ public class Contacts {
                 System.out.println();
             }
         }
-        System.out.println("Done :"+c+" contacts were found");
+        System.out.println("\nDone : "+c+" matches for \""+target+"\"");
     }
 
     public static String loadCommandLine(String s) {
@@ -135,6 +136,15 @@ public class Contacts {
         System.out.println("Please use the \"help\" command");
     }
 
+    public static boolean isNumber(String info) {
+        try {
+            Long.valueOf(info);
+        } catch (Exception NumberFormatException) {
+            return false;
+        }
+        return true;
+    }
+
     public static void command() {
         // Asks for command's execution after getting it from the user
         // Ignores the request if the command is blank
@@ -145,7 +155,7 @@ public class Contacts {
     }
 
     public static String getInfo() {
-        String info = loadCommandLine("?");
+        String info = loadCommandLine("?").trim();
         if (info.isBlank()) {
             info = "-";
         }
@@ -215,16 +225,76 @@ public class Contacts {
     
     public static void addContact() {
         // Adds a contact at the end of the list
-        System.out.print("first name : ");
-        firstName.add(toName(getInfo()));
-        System.out.print("last name : ");
-        lastName.add(toName(getInfo()));
-        System.out.print("phone number :");
-        number.add(getInfo());
+        System.out.println();
+
+        String[] info = new String[5];
+
+        System.out.print("firstname : ");
+        info[0] = toName(getInfo());
+        System.out.print("lastname : ");
+        info[1] = toName(getInfo());
+
+        if (info[0].equals("-") && info[1].equals("-")) {
+            System.out.println("You didn't name this contact, give him at least a firstname or lastname");
+            System.out.println("... I couldn't add your contact");
+            return;
+        }
+
+        System.out.print("phone number : ");
+        info[2] = getInfo();
+
+        if (!isNumber(info[2])) {
+            System.out.println("Your number is really weird");
+            System.out.println("... I couldn't add your contact");
+            return;
+        }
+
+        for (String i : number) {
+            if (i.equals(info[2])) {
+                System.out.println("The number \""+info[2]+"\" is already associated to a contact");
+                System.out.println("... I couldn't add your contact");
+                return;
+            }
+        }
+
         System.out.print("email : ");
-        email.add(getInfo());
+        info[3] = getInfo().toLowerCase();
+
+        for (String i : email) {
+            if (i.equals(info[3]) && !(info[3].equals("-"))) {
+                System.out.println("The email \""+info[3]+"\" is already associated to a contact");
+                System.out.println("I couldn't add your contact");
+                return;
+            }
+        }
+
+        if (info[2].equals("-") && info[3].equals("-")) {
+            System.out.println("Why would you add a contact that you can't contact ?");
+            System.out.println("... I couldn't add your contact");
+            return;
+        }
+
         System.out.print("birthday : ");
-        birthday.add(getInfo());
+        info[4] = getInfo();
+
+        System.out.println("Okay everything's good, do you want to create this contact :");
+
+        for (String i : info) {
+            System.out.println(i);
+        }
+
+        if (!getPermission()) {
+            System.out.println("... I won't create your contact");
+            return;
+        }
+
+        System.out.println("Creating your contact...");
+        firstName.add(info[0]);
+        lastName.add(info[1]);
+        number.add(info[2]);
+        email.add(info[3]);
+        birthday.add(info[4]);
+        System.out.println("Done.");
     }
 
     public static void removeContact(String target, int n) {
@@ -277,12 +347,13 @@ public class Contacts {
                 del-email                                           email
                 del-birthday                                        birthday
 
-                edit-firstname   edit contacts that have the same firstname as specified in the next prompt
-                edit-lastname                                     lastname
-                edit-number                                       number
-                edit-email                                        email
-                edit-birthday                                     birthday
-                                 (note that you can't edit multiple contacts at the same time)
+                edit-number   edit contacts that have the same firstname as specified in the next prompt
+                edit-email                                     email
+
+                                 (note that you can't edit multiple contacts at the same time
+                                  so you edit by specifying the number/email because
+                                  there's not a single chance that two contacts have the same
+                                  email/number.)
 
                 List of tips to read the prompt
 
@@ -291,8 +362,8 @@ public class Contacts {
                                   Example : after using find-firstname, you have to enter
                                   a firstname so that the program searches for it in your contacts
 
-                Warning :         This program needs at least a window that can display at least 140 characters
-                                  in a line so that the contacts are displayed properly
+                Warning :         This program needs a window that can display at least 140 characters
+                                  If not the contacts can't be displayed properly.
                 """);
     }
 
@@ -356,11 +427,15 @@ public class Contacts {
         }
     }
 
-    public static void main(String[] args) {
-        // Main function
+    public static void myContact() {
         contactIni();
         while (run) {
-            command();
-        }   
+           command();
+        } 
+    }
+
+    public static void main(String[] args) {
+        // Main function
+        myContact();
     }
 }
