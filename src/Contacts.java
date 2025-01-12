@@ -83,19 +83,20 @@ public class Contacts {
 
     public static void displayContact() {
         // Shows every contacts
-        displayPrep();
         int numberOfContact = contact.get(0).size();
-        int i=0;
-        
-        System.out.println();
-        while (i<numberOfContact) {
-            for (int j=0;j<contact.size();j++) {
-                System.out.print(indentDisplay(contact.get(j).get(i)));
+        if (numberOfContact > 0) {
+            int i=0;
+            System.out.println();
+            while (i<numberOfContact) {
+                for (int j=0;j<contact.size();j++) {
+                    System.out.print(indentDisplay(contact.get(j).get(i)));
+                }
+                i++;
+                System.out.println();
             }
-            i++;
             System.out.println();
         }
-        System.out.println();
+        System.out.println("Total of "+numberOfContact+" contact(s)\n");
     }
 
     public static void displayOneContact(String target, int n) {
@@ -149,6 +150,21 @@ public class Contacts {
             info = "-";
         }
         return info;
+    }
+
+    public static boolean getPermission() {
+        // Ask user's permission
+        System.out.println("Type \"y\" to continue, \"n\" to abort.");
+        String permission = "";
+        while (true) {
+            permission = loadCommandLine("y or n ?");
+            switch (permission) {
+                case "y":
+                    return true;
+                case "n":
+                    return false;
+            }
+        }
     }
 
     public static ArrayList<Integer> getContactPos(String target, int n) {
@@ -213,6 +229,17 @@ public class Contacts {
 
     public static void removeContact(String target, int n) {
         ArrayList<Integer> pos = getLivePos(target, n);
+
+        if (pos.size()==0) {
+            System.out.println("Couldn't find a contact having the following keyword \""+target+"\"");
+            return;
+        }
+
+        System.out.println("Warning : "+pos.size()+" contact(s) will be deleted !");
+        if (!getPermission()) {
+            System.out.println("Abortion");
+            return;
+        }
         int index = -1;
         for (int i=0;i<pos.size();i++) {
             index = pos.get(i);
@@ -220,7 +247,7 @@ public class Contacts {
                 contact.get(j).remove(index);
             }
         }
-        
+        System.out.println("Done. "+pos.size()+" contact(s) have been deleted.");
     }
 
     public static void help() {
