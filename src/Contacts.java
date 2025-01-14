@@ -13,7 +13,6 @@ public class Contacts {
     public static ArrayList<String> number = new ArrayList<String>();
     public static ArrayList<String> email = new ArrayList<String>();
     public static ArrayList<String> birthday = new ArrayList<String>();
-
     // Some variables
     public static boolean run = true;
 
@@ -41,10 +40,10 @@ public class Contacts {
         lastName.add("Eau de source");
         lastName.add("Sanofi");
 
-        number.add("07XXXXXXXX");
-        number.add("06XXXXXXXX");
-        number.add("09XXXXXXXX");
-        number.add("09XXXXXXXX");
+        number.add("0777777777");
+        number.add("0666666666");
+        number.add("0999999999");
+        number.add("0999999998");
 
         email.add("cest@decoratif.com");
         email.add("tktp@cvbiensepasser.fr");
@@ -54,8 +53,8 @@ public class Contacts {
 
         birthday.add("18/03/2006");
         birthday.add("18/03/2006");
-        birthday.add("15/??/????");
-        birthday.add("AB/CD/EFGH");
+        birthday.add("15/03/2006");
+        birthday.add("31/12/2006");
     }
 
     public static String indentDisplay(String j) {
@@ -137,6 +136,7 @@ public class Contacts {
     }
 
     public static boolean isNumber(String info) {
+        if (info.equals("-")) {return true;}
         try {
             Long.valueOf(info);
         } catch (Exception NumberFormatException) {
@@ -180,9 +180,6 @@ public class Contacts {
     public static ArrayList<Integer> getContactPos(String target, int n) {
         // Return an Integer ArrayList of contact's actual position in the contact ArrayList
         ArrayList<Integer> pos = new ArrayList<Integer>();
-        if (n==0||n==1) {
-            target = toName(target);
-        }
         for (int i=0;i<contact.get(n).size();i++) {
             if (contact.get(n).get(i).equals(target)) {
                 pos.add(i);
@@ -206,7 +203,6 @@ public class Contacts {
     public static String toName(String info) {
         // transforms any String to a specific format.
         // Example : "honey/hOney/hONeY" becomes "Honey"
-        info = info.trim();
         String swap = String.valueOf(info.charAt(0));
         info = info.substring(1).toLowerCase();
         swap = swap.toUpperCase();
@@ -250,7 +246,7 @@ public class Contacts {
         }
 
         for (String i : number) {
-            if (i.equals(info[2])) {
+            if (i.equals(info[2]) && !(info[2].equals("-"))) {
                 System.out.println("The number \""+info[2]+"\" is already associated to a contact");
                 System.out.println("... I couldn't add your contact");
                 return;
