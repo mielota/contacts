@@ -26,7 +26,7 @@ git clone https://github.com/mielota/contacts.git
 cd contacts/
 ```
 
-3. Run the Contacts.class file with:
+3. Run the program with :
 ```
 javac Contacts.java && java Contacts
 ```
