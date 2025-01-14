@@ -18,7 +18,7 @@ Note that you need java to be installed on your machine.
 
 1. Clone the repository : 
 ```
-git clone https://github.com/mielota/contacts
+git clone https://github.com/mielota/contacts.git
 ```
 
 2. To run the program, make sure to be in the contacts/ directory:
