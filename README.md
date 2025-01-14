@@ -14,6 +14,8 @@ I used the 21.0.6 open java development kit
 
 ## installation and guide
 
+Note that you need java to be installed on your machine.
+
 1. Clone the repository : 
 ```
 git clone https://github.com/mielota/contacts
