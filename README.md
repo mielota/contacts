@@ -28,5 +28,5 @@ cd contacts/
 
 3. Run the Contacts.class file with:
 ```
-java Contacts
+javac Contacts.java && java Contacts
 ```
