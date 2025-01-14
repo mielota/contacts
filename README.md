@@ -17,10 +17,14 @@ I used the 21.0.6 open java development kit
 1. Clone the repository : 
 ```
 git clone https://github.com/mielota/contacts
+```
+
+2. To run the program, make sure to be in the contacts/ directory:
+```
 cd contacts/
 ```
 
-2. Be sure to be in contacts/ and then :
+3. Run the Contacts.class file with:
 ```
 java Contacts
 ```
