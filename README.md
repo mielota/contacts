@@ -18,12 +18,17 @@ Note that you need java to be installed on your machine.
 git clone https://github.com/mielota/contacts.git
 ```
 
-2. To run the program, make sure to be in the contacts/ directory:
+2. To run the program, make sure to be in the contacts/src/ directory:
 ```
-cd contacts/
+cd contacts/src/
 ```
 
-3. Run the program with :
+3. Build .class files with :
 ```
-java Contacts.jar
+javac */*.java
+```
+
+4. Run the program :
+```
+java main/Contacts
 ```
