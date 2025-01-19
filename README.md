@@ -1,14 +1,11 @@
-# WORK IN PROGRESS 
-not finished yet :'(
-
-## contacts
-Contacts is a simple program written in Java used to create/delete/edit contacts.
+# contacts
+Contacts is a simple program written in Java used to create/delete contacts.
 It has it's own prompt and commands. 
 You can run the command "help" to see what's the purpose of each commands.
 
 ## notes
 It's written only using basic java programming tools such as for loops, Arrays/ArrayList, switch etc.
-You can find the source code in src/Contacts.java
+You can find the source code in src/main/ and src/util/
 
 I used the 21.0.6 open java development kit
 
@@ -28,5 +25,5 @@ cd contacts/
 
 3. Run the program with :
 ```
-javac Contacts.java && java Contacts
+java Contacts.jar
 ```
