@@ -104,7 +104,7 @@ public class Contacts {
 
     public static boolean isNumber(String info) {
         // Check if the String is a number
-        if (info.equals("-")) {return true;}
+        if (info.equals("-")) return true;
         try {
             Long.valueOf(info);
         } catch (Exception NumberFormatException) {
@@ -168,14 +168,10 @@ public class Contacts {
         return swap;
     }
 
-    public static String toName(String info) {
+    public static String toName(String arg) {
         // transforms any String to a specific format.
         // Example : "honey/hOney/hONeY" becomes "Honey"
-        String swap = String.valueOf(info.charAt(0));
-        info = info.substring(1).toLowerCase();
-        swap = swap.toUpperCase();
-        swap += info;
-        return swap;
+        return Character.toUpperCase(arg.charAt(0))+arg.substring(1).toLowerCase();
     }
 
     public static void clear() {
